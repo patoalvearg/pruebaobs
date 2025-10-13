@@ -31,6 +31,4 @@ jobs:
 
       - name: Push Metrics to Prometheus
         run: |
-          curl -X POST -H "Content-Type: application/json" \
-            -d '{"job_name": "github_actions_pipeline", "status": "success"}' \
-            http://localhost:9091/metrics
+           echo "Simulando envío de métricas para ${{ env.OBSERVABILITY_JOB_NAME }}"
