@@ -1,0 +1,37 @@
+name: CI/CD Pipeline with Observability
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Install Dependencies
+        run: |
+          npm install
+        env:
+          OBSERVABILITY_JOB_NAME: "Install Dependencies"
+
+      - name: Run Tests
+        run: |
+          npm test
+        env:
+          OBSERVABILITY_JOB_NAME: "Run Tests"
+
+      - name: Build Application
+        run: |
+          npm run build
+        env:
+          OBSERVABILITY_JOB_NAME: "Build Application"
+
+      - name: Push Metrics to Prometheus
+        run: |
+          curl -X POST -H "Content-Type: application/json" \
+            -d '{"job_name": "${{ env.OBSERVABILITY_JOB_NAME }}", "status": "success"}' \
+            http://prometheus-server.local:9091/metrics
