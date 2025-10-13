@@ -33,4 +33,4 @@ jobs:
         run: |
           curl -X POST -H "Content-Type: application/json" \
             -d '{"job_name": "${{ env.OBSERVABILITY_JOB_NAME }}", "status": "success"}' \
-            http://prometheus-server.local:9091/metrics
+            http://localhost:9091/metrics
