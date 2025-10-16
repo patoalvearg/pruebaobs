@@ -1,9 +1,7 @@
 name: CI/CD Pipeline with Observability
-
 on:
   push:
   
-
 jobs:
   build:
     runs-on: ubuntu-latest
